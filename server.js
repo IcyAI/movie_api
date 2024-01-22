@@ -1,7 +1,7 @@
 
 const http = require('http'),
     fs = require('fs'),
-    URL = require('url');
+    url = require('url');
 
 http.createServer((request, response) => {
     let addr = request.url,

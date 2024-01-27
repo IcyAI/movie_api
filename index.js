@@ -17,44 +17,34 @@ app.use(morgan('combined', { stream: accessLogStream }));
 
 let topMovies = [
     {
-        title: 'Harry Potter and the Sorcerer\'s Stone',
-        author: 'J.K. Rowling'
+        title: 'A space Odyssey',
     },
     {
-        title: 'Lord of the Rings',
-        author: 'J.R.R. Tolkien'
+        title: 'The Godfather',
     },
     {
-        title: 'Twilight',
-        author: 'Stephanie Meyer'
+        title: 'Raiders of the Lost Ark',
     },
     {
-        title: 'Twilight',
-        author: 'Stephanie Meyer'
+        title: 'There Will Be Blood',
     },
       {
-        title: 'Twilight',
-        author: 'Stephanie Meyer'
+        title: 'Pulp Fiction',
     },
       {
-        title: 'Twilight',
-        author: 'Stephanie Meyer'
+        title: 'Forrest Gump',
     },
       {
-        title: 'Twilight',
-        author: 'Stephanie Meyer'
+        title: 'Fight Club',
     },
       {
-        title: 'Twilight',
-        author: 'Stephanie Meyer'
+        title: 'Inception',
     },
       {
-        title: 'Twilight',
-        author: 'Stephanie Meyer'
+        title: 'The Matrix',
     },
       {
-        title: 'Twilight',
-        author: 'Stephanie Meyer'
+        title: 'Back to the Future',
     }
 ];
 

@@ -27,31 +27,31 @@ let topMovies = [
     {
         title: 'Twilight',
         author: 'Stephanie Meyer'
-    }
+    },
     {
         title: 'Twilight',
         author: 'Stephanie Meyer'
-    }
+    },
       {
         title: 'Twilight',
         author: 'Stephanie Meyer'
-    }
+    },
       {
         title: 'Twilight',
         author: 'Stephanie Meyer'
-    }
+    },
       {
         title: 'Twilight',
         author: 'Stephanie Meyer'
-    }
+    },
       {
         title: 'Twilight',
         author: 'Stephanie Meyer'
-    }
+    },
       {
         title: 'Twilight',
         author: 'Stephanie Meyer'
-    }
+    },
       {
         title: 'Twilight',
         author: 'Stephanie Meyer'

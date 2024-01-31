@@ -27,7 +27,7 @@ let users = [
   }
 ]
 
-let movie = [
+let movies = [
   {
     "Title": "example",
     "Description": "example of a description",

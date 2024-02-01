@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation</title>
-    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="\css\styles.css">
 </head>
 
 <body>
@@ -35,7 +35,10 @@
         <td>None</td>
         <td>GET</td>
         <td> None</td>
-        <td> JSON Object holding data about all movies</td>
+        <td> JSON Object holding data about all movies
+            <br>
+            [{"Title":"example","Description":"example of a description","Genre":{"Name":"Drama","Description":"example of a descirption"},"Director":{"Name":"Smith","Bio":"Smith example Bio","Birth":2000}}]
+        </td>
     </tr>
 
     <tr>
@@ -44,7 +47,22 @@
         <td>:title</td>
         <td>GET</td>
         <td>None</td>
-        <td>JSON Object holding data of single movie</td>
+        <td>JSON Object holding data of single movie
+            <br>
+            {
+                "Title": "example",
+                "Description": "example of a description",
+                "Genre": {
+                    "Name": "Drama",
+                    "Description": "example of a descirption"
+                },
+                "Director": {
+                    "Name": "Smith",
+                    "Bio": "Smith example Bio",
+                    "Birth": 2000
+                }
+            }
+        </td>
     </tr>
 
     <tr>
@@ -53,7 +71,13 @@
         <td>:genreName</td>
         <td>GET</td>
         <td>None</td>
-        <td>JSON Object holding data of genre description</td>
+        <td>JSON Object holding data of genre description
+            <br>
+            {
+                "Name": "Drama",
+                "Description": "example of a descirption"
+            }
+        </td>
     </tr>
 
     <tr>
@@ -62,7 +86,14 @@
         <td>:directorName</td>
         <td>GET</td>
         <td>None</td>
-        <td>JSON Object holding data of directors Name</td>
+        <td>JSON Object holding data of directors Name
+            <br>
+            {
+                "Name": "Smith",
+                "Bio": "Smith example Bio",
+                "Birth": 2000
+            }
+        </td>
     </tr>
 
     <tr>
@@ -70,8 +101,23 @@
         <td>/uers</td>
         <td>None</td>
         <td>POST</td>
-        <td>JSON Object holding data of New User</td>
-        <td>JSON Object holding data of New User </td>
+        <td>JSON Object holding data of New User
+            <br>
+            {
+                "name":"Anna",
+                "favoriteMovies":["exampleMovie"]
+              }
+        </td>
+        <td>JSON Object holding data of New User 
+            <br>
+            {
+                "name": "Anna",
+                "favoriteMovies": [
+                    "exampleMovie"
+                ],
+                "id": "c9c9f480-c993-49c0-84a3-027c8f9ee286"
+            }
+        </td>
     </tr>
 
     <tr>
@@ -79,8 +125,22 @@
         <td>/users/id/</td>
         <td>:id</td>
         <td>PUT</td>
-        <td>JSON Object holding data of New User ID</td>
-        <td>JSON Object of Updated User information</td>
+        <td>JSON Object holding data of New User ID
+            <br>
+            {
+                "name":"Kim Updated"
+              }
+        </td>
+        <td>JSON Object of Updated User information
+            <br>
+            {
+                "id": 1,
+                "name": "Kim Updated",
+                "favoriteMovies": [
+                    "Test"
+                ]
+            }
+        </td>
     </tr>
 
     <tr>
@@ -89,7 +149,10 @@
         <td>:id/:movieTitle</td>
         <td>POST</td>
         <td>None</td>
-        <td>Text Message confimation</td>
+        <td>Text Message confimation
+            <br>
+            Movie has been added to users favoite movies
+        </td>
     </tr>
 
     <tr>
@@ -98,7 +161,10 @@
         <td>:id/:movieTitle</td>
         <td>DELETE</td>
         <td>None</td>
-        <td>Text Messeage Confimation</td>
+        <td>Text Messeage Confimation
+            <br>
+            Movie has been removed from the users favoite movies
+        </td>
     </tr>
 
     <tr>
@@ -107,7 +173,10 @@
         <td>:id</td>
         <td>DELETE</td>
         <td>None</td>
-        <td>Text Message Confirmation</td>
+        <td>Text Message Confirmation
+            <br>
+            user id has been deleted
+        </td>
     </tr>
 
  </table>

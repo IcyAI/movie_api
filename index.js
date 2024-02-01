@@ -130,7 +130,7 @@ app.put('/users/:id', (req, res) => {
     let user = users.find( user => user.id == id);
 
     if (user) {
-        user.favoriteMovie.push(movieTitle);
+        user.favoriteMovies.push(movieTitle);
         res.status(200).send("Movie has been added to users favoite movies");
     }
     else{

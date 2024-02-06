@@ -19,7 +19,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { 
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }));
 
-let users = [
+let Users = [
   {
     id:1,
     name:"Kim",
@@ -32,7 +32,7 @@ let users = [
   }
 ]
 
-let movies = [
+let Movies = [
   {
     "Title": "example",
     "Description": "example of a description",
@@ -49,13 +49,13 @@ let movies = [
 ]
 //Read
 app.get('/movies', (req, res) => {
-    res.status(200).json(movies);
+    res.status(200).json(Movies);
   });
 
 //Read
   app.get('/movies/:title', (req, res) => {
     const title = req.params.title;
-    const movie = movies.find(movie => movie.Title === title);
+    const movie = Movies.find(movie => movie.Title === title);
 
     if(movie) {
         res.status(200).json(movie);
@@ -70,7 +70,7 @@ app.get('/movies', (req, res) => {
 //Read
 app.get('/movies/genre/:genreName', (req, res) => {
     const genreName = req.params.genreName;
-    const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
+    const genre = Movies.find(movie => movie.Genre.Name === genreName).Genre;
 
     if(genre) {
         res.status(200).json(genre);
@@ -85,7 +85,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
 //Read
   app.get('/movies/directors/:directorName', (req, res) => {
     const directorName = req.params.directorName;
-    const director = movies.find(movie => movie.Director.Name === directorName).Director;
+    const director = Movies.find(movie => movie.Director.Name === directorName).Director;
 
     if(director) {
         res.status(200).json(director);
@@ -102,7 +102,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
 
     if(newUser.name) {
         newUser.id = uuid.v4();
-        users.push(newUser);
+        Users.push(newUser);
         res.status(201).json(newUser);
     }
     else {
@@ -116,7 +116,7 @@ app.put('/users/:id', (req, res) => {
     const id = req.params.id;
     const updatedUser = req.body;
     
-    let user = users.find( user => user.id == id);
+    let user = Users.find( user => user.id == id);
 
     if (user) {
         user.name = updatedUser.name;
@@ -132,7 +132,7 @@ app.put('/users/:id', (req, res) => {
     const id = req.params.id;
     const movieTitle = req.params.movieTitle;
     
-    let user = users.find( user => user.id == id);
+    let user = Users.find( user => user.id == id);
 
     if (user) {
         user.favoriteMovies.push(movieTitle);
@@ -148,7 +148,7 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
     const id = req.params.id;
     const movieTitle = req.params.movieTitle;
     
-    let user = users.find( user => user.id == id);
+    let user = Users.find( user => user.id == id);
 
     if (user) {
         user.favoriteMovie = user.favoriteMovies.filter(title => title !== movieTitle);
@@ -163,26 +163,16 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 app.delete('/users/:id', (req, res) => {
     const id = req.params.id;
     
-    let user = users.find( user => user.id == id);
+    let user = Users.find( user => user.id == id);
 
     if (user) {
-        users = users.filter( user => user.id != id);
+        Users = Users.filter( user => user.id != id);
         res.status(200).send("user id has been deleted");
     }
     else{
         res.status(400).send("no such user");
     }
   });
-
-
-// app.get('/', (req, res) => {
-//     res.send('testing my code');
-// });
-
-// app.use((err, req, res, next) => {
-//     console.error(err.stack);
-//     res.status(500).send('Something broke!');
-// });
 
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');

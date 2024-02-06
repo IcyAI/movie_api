@@ -21,14 +21,14 @@ app.use(morgan('combined', { stream: accessLogStream }));
 
 let Users = [
   {
-    id:1,
-    name:"Kim",
+    Id:1,
+    Name:"Kim",
     favoriteMovies: ["Test"]
   },
   {
-    id:2,
-    name:"Kelly",
-    favoriteMovies: ["MovieName"]
+    Id:2,
+    Name:"Kelly",
+    favoriteMovies: ["movieName"]
   }
 ]
 
@@ -43,7 +43,7 @@ let Movies = [
     "Director": {
       "Name":"Smith",
       "Bio":"Smith example Bio",
-      "Birth":2000.0
+      "dateOfBirth": "January, 1st, 1956"
     }
   }
 ]
@@ -100,8 +100,8 @@ app.get('/movies/genre/:genreName', (req, res) => {
   app.post('/users', (req, res) => {
     const newUser = req.body;
 
-    if(newUser.name) {
-        newUser.id = uuid.v4();
+    if(newUser.Name) {
+        newUser.Id = uuid.v4();
         Users.push(newUser);
         res.status(201).json(newUser);
     }
@@ -113,13 +113,13 @@ app.get('/movies/genre/:genreName', (req, res) => {
 
 //update
 app.put('/users/:id', (req, res) => {
-    const id = req.params.id;
+    const id = req.params.Id;
     const updatedUser = req.body;
     
-    let user = Users.find( user => user.id == id);
+    let user = Users.find( user => user.Id == id);
 
     if (user) {
-        user.name = updatedUser.name;
+        user.Name = updatedUser.Name;
         res.status(200).json(user);
     }
     else{
@@ -129,10 +129,10 @@ app.put('/users/:id', (req, res) => {
 
   //create/update
   app.post('/users/:id/:movieTitle', (req, res) => {
-    const id = req.params.id;
+    const id = req.params.Id;
     const movieTitle = req.params.movieTitle;
     
-    let user = Users.find( user => user.id == id);
+    let user = Users.find( user => user.Id == id);
 
     if (user) {
         user.favoriteMovies.push(movieTitle);
@@ -145,10 +145,10 @@ app.put('/users/:id', (req, res) => {
 
 //Detele
 app.delete('/users/:id/:movieTitle', (req, res) => {
-    const id = req.params.id;
+    const id = req.params.Id;
     const movieTitle = req.params.movieTitle;
     
-    let user = Users.find( user => user.id == id);
+    let user = Users.find( user => user.Id == id);
 
     if (user) {
         user.favoriteMovie = user.favoriteMovies.filter(title => title !== movieTitle);
@@ -161,13 +161,13 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 
 //Delete
 app.delete('/users/:id', (req, res) => {
-    const id = req.params.id;
+    const id = req.params.Id;
     
-    let user = Users.find( user => user.id == id);
+    let user = Users.find( user => user.Id == id);
 
     if (user) {
-        Users = Users.filter( user => user.id != id);
-        res.status(200).send("user id has been deleted");
+        Users = Users.filter( user => user.Id != id);
+        res.status(200).send("user ID has been deleted");
     }
     else{
         res.status(400).send("no such user");

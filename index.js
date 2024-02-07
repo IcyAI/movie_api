@@ -19,43 +19,43 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { 
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }));
 
-let Users = [
+let users = [
   {
-    Id:1,
-    Name:"Kim",
+    id:1,
+    name:"Kim",
     favoriteMovies: ["Test"]
   },
   {
-    Id:2,
-    Name:"Kelly",
+    id:2,
+    name:"Kelly",
     favoriteMovies: ["movieName"]
   }
 ]
 
-let Movies = [
+let movies = [
   {
-    "Title": "example",
-    "Description": "example of a description",
-    "Genre": {
-      "Name": "Drama",
-      "Description": "example of a descirption"
+    "title": "example",
+    "description": "example of a description",
+    "genre": {
+      "name": "Drama",
+      "description": "example of a descirption"
     },
-    "Director": {
-      "Name":"Smith",
-      "Bio":"Smith example Bio",
+    "director": {
+      "name":"Smith",
+      "bio":"Smith example Bio",
       "dateOfBirth": "January, 1st, 1956"
     }
   }
 ]
 //Read
 app.get('/movies', (req, res) => {
-    res.status(200).json(Movies);
+    res.status(200).json(movies);
   });
 
 //Read
   app.get('/movies/:title', (req, res) => {
     const title = req.params.title;
-    const movie = Movies.find(movie => movie.Title === title);
+    const movie = movies.find(movie => movie.title === title);
 
     if(movie) {
         res.status(200).json(movie);
@@ -70,7 +70,7 @@ app.get('/movies', (req, res) => {
 //Read
 app.get('/movies/genre/:genreName', (req, res) => {
     const genreName = req.params.genreName;
-    const genre = Movies.find(movie => movie.Genre.Name === genreName).Genre;
+    const genre = movies.find(movie => movie.genre.name === genreName).genre;
 
     if(genre) {
         res.status(200).json(genre);
@@ -85,7 +85,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
 //Read
   app.get('/movies/directors/:directorName', (req, res) => {
     const directorName = req.params.directorName;
-    const director = Movies.find(movie => movie.Director.Name === directorName).Director;
+    const director = movies.find(movie => movie.director.name === directorName).director;
 
     if(director) {
         res.status(200).json(director);
@@ -100,9 +100,9 @@ app.get('/movies/genre/:genreName', (req, res) => {
   app.post('/users', (req, res) => {
     const newUser = req.body;
 
-    if(newUser.Name) {
-        newUser.Id = uuid.v4();
-        Users.push(newUser);
+    if(newUser.name) {
+        newUser.id = uuid.v4();
+        users.push(newUser);
         res.status(201).json(newUser);
     }
     else {
@@ -113,13 +113,13 @@ app.get('/movies/genre/:genreName', (req, res) => {
 
 //update
 app.put('/users/:id', (req, res) => {
-    const id = req.params.Id;
+    const id = req.params.id;
     const updatedUser = req.body;
     
-    let user = Users.find( user => user.Id == id);
+    let user = users.find( user => user.id == id);
 
     if (user) {
-        user.Name = updatedUser.Name;
+        user.name = updatedUser.name;
         res.status(200).json(user);
     }
     else{
@@ -129,10 +129,10 @@ app.put('/users/:id', (req, res) => {
 
   //create/update
   app.post('/users/:id/:movieTitle', (req, res) => {
-    const id = req.params.Id;
+    const id = req.params.id;
     const movieTitle = req.params.movieTitle;
     
-    let user = Users.find( user => user.Id == id);
+    let user = users.find( user => user.id == id);
 
     if (user) {
         user.favoriteMovies.push(movieTitle);
@@ -145,13 +145,13 @@ app.put('/users/:id', (req, res) => {
 
 //Detele
 app.delete('/users/:id/:movieTitle', (req, res) => {
-    const id = req.params.Id;
+    const id = req.params.id;
     const movieTitle = req.params.movieTitle;
     
-    let user = Users.find( user => user.Id == id);
+    let user = users.find( user => user.id == id);
 
     if (user) {
-        user.favoriteMovie = user.favoriteMovies.filter(title => title !== movieTitle);
+        user.favoriteMovies = user.favoriteMovies.filter(title => title !== movieTitle);
         res.status(200).send("Movie has been removed from the users favoite movies");
     }
     else{
@@ -161,12 +161,12 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 
 //Delete
 app.delete('/users/:id', (req, res) => {
-    const id = req.params.Id;
+    const id = req.params.id;
     
-    let user = Users.find( user => user.Id == id);
+    let user = users.find( user => user.id == id);
 
     if (user) {
-        Users = Users.filter( user => user.Id != id);
+        users = users.filter( user => user.id != id);
         res.status(200).send("user ID has been deleted");
     }
     else{

@@ -2,8 +2,8 @@
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
-const Movies = Models.Movie;
-const Users = Models.User;
+const movies = Models.movie;
+const users = Models.user;
 
 mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -29,7 +29,7 @@ app.use(morgan('combined', { stream: accessLogStream }));
 
 //Read all movies
 app.get('/movies', async (req, res) => {
-  await Movies.find()
+  await movies.find()
   .then((movies) => {
     res.status(201).json(movies);
   })
@@ -41,7 +41,7 @@ app.get('/movies', async (req, res) => {
 
 //Read one movie
 app.get('/movies/:title', async (req, res) => {
- await Movies.findOne({Title: req.params.title})
+ await movies.findOne({Title: req.params.title})
  .then((movie) => {
   res.json(movie);
  })
@@ -53,9 +53,9 @@ app.get('/movies/:title', async (req, res) => {
 
 //Read genre description
 app.get('/movies/genre/:genreName', async (req, res) => {
-  await Movies.findOne({ 'Genre.Name': req.params.genreName})
+  await movies.findOne({ 'genre.name': req.params.genreName})
   .then((movies) => {
-    res.json(movies.Genre);
+    res.json(movies.genre);
   })
   .catch((err) => {
     console.error(err);
@@ -66,9 +66,9 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 
 //Read director description
 app.get('/movies/directors/:directorName', async (req, res) => {
-  await Movies.findOne({ 'Director.Name': req.params.directorName})
+  await movies.findOne({ 'director.name': req.params.directorName})
   .then((movies) => {
-    res.json(movies.Director);
+    res.json(movies.director);
   })
   .catch((err) => {
     console.error(err);
@@ -78,17 +78,17 @@ app.get('/movies/directors/:directorName', async (req, res) => {
 
 //create new user
   app.post('/users', async (req, res) => {
-    await Users.findOne({ Username: req.body.Username })
+    await users.findOne({ username: req.body.username })
       .then((user) => {
         if (user) {
-          return res.status(400).send(req.body.Username + 'already exists');
+          return res.status(400).send(req.body.username + 'already exists');
         } else {
-          Users
+          users
             .create({
-              Username: req.body.Username,
-              Password: req.body.Password,
-              Email: req.body.Email,
-              Birthday: req.body.Birthday
+              username: req.body.username,
+              password: req.body.password,
+              email: req.body.email,
+              birthday: req.body.birthday
             })
             .then((user) =>{res.status(201).json(user) })
           .catch((error) => {
@@ -103,9 +103,9 @@ app.get('/movies/directors/:directorName', async (req, res) => {
       });
   });
 
-//create New user
+//Update User Information
 app.put('/users/:Username', async (req, res) => {
-  await Users.findOneAndUpdate({Username: req.params.Username }, {
+  await users.findOneAndUpdate({username: req.params.username }, {
     $set:
     {
     Username: req.body.Username,
@@ -126,8 +126,8 @@ app.put('/users/:Username', async (req, res) => {
 
 //Update New favorite movie
   app.post('/Users/:Username/movies/:MovieID', async (req, res) => {
-    await Users.findOneAndUpdate({Username: req.params.Username},
-      {$push: { FavoriteMovies: req.params.MovieID}},
+    await users.findOneAndUpdate({username: req.params.Username},
+      {$push: { favoriteMovies: req.params.MovieID}},
     { new: true})
     .then((updatedUser) => {
       res.json(updatedUser);
@@ -140,8 +140,8 @@ app.put('/users/:Username', async (req, res) => {
 
 //delete FavoriteMovie
 app.delete('/Users/:Username/movies/:MovieID', async (req, res) => {
-  await Users.findOneAndUpdate({Username: req.params.Username},
-    {$pull: { FavoriteMovies: req.params.MovieID}},
+  await users.findOneAndUpdate({username: req.params.Username},
+    {$pull: { favoriteMovies: req.params.MovieID}},
   { new: true})
   .then((updatedUser) => {
     res.json(updatedUser);
@@ -154,7 +154,7 @@ app.delete('/Users/:Username/movies/:MovieID', async (req, res) => {
 
   //Delete User
 app.delete('/Users/:Username', async (req, res) => {
-  await Users.findOneAndDelete({ Username: req.params.Username})
+  await users.findOneAndDelete({ username: req.params.Username})
     .then((user) => {
       if (!user) {
         res.status(400).send(req.params.Username + ' was not found');

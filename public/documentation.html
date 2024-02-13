@@ -37,7 +37,24 @@
         <td> None</td>
         <td> JSON Object holding data about all movies
             <br>
-            [{"title":"example","description":"example of a description","genre":{"name":"Drama","description":"example of a descirption"},"director":{"name":"Smith","bio":"Smith example Bio","dateOfBirth":"January, 1st, 1956"}}]        </td>
+            {
+                "Genre": {
+                    "Name": "Thriller",
+                    "Description": "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience."
+                },
+                "Director": {
+                    "Name": "Jonathan Demme",
+                    "Bio": "Robert Jonathan Demme was an American director, producer, and screenwriter.",
+                    "Birth": "1944",
+                    "Death": "2017"
+                },
+                "_id": "65c7e1d5b2346225eb83f829",
+                "Title": "Silence of the Lambs",
+                "Description": "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
+                "ImagePath": "silenceofthelambs.png",
+                "Featured": true
+            },       
+         </td>
     </tr>
 
     <tr>
@@ -49,17 +66,21 @@
         <td>JSON Object holding data of single movie
             <br>
             {
-                "title": "example",
-                "description": "example of a description",
-                "genre": {
-                    "name": "Drama",
-                    "description": "example of a descirption"
+                "Genre": {
+                    "Name": "Action",
+                    "Description": "The action film is a film genre which predominantly feature chase sequences, fights, shootouts, explosions, and stunt work."
                 },
-                "director": {
-                    "name": "Smith",
-                    "bio": "Smith example Bio",
-                    "dateOfBirth": "January, 1st, 1956"
-                }
+                "Director": {
+                    "Name": "James Cameron",
+                    "Bio": "James Francis Cameron CC (born August 16, 1954) is a Canadian filmmaker. He is a major figure in the post-New Hollywood era, and one of the industry most innovative filmmakers. He often uses novel technologies with a classical filmmaking style.",
+                    "Birth": "1954",
+                    "Death": "Alive"
+                },
+                "_id": "65c7fd3db2346225eb83f832",
+                "Title": "AVATAR",
+                "Description": "Updated versions of description, James Cameron, returns to theaters September 23 in stunning 4K High Dynamic Range. On the lush alien world of Pandora live the Na vi, beings who appear primitive but are highly evolved.",
+                "ImagePath": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/Avatar_%282009_film%29_poster.jpg/220px-Avatar_%282009_film%29_poster.jpg",
+                "Featured": true
             }
         </td>
     </tr>
@@ -73,8 +94,8 @@
         <td>JSON Object holding data of genre description
             <br>
             {
-                "name": "Drama",
-                "description": "example of a descirption"
+                "Name": "Drama",
+                "Description": "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
             }
         </td>
     </tr>
@@ -88,9 +109,10 @@
         <td>JSON Object holding data of directors Name
             <br>
             {
-                "name": "Smith",
-                "bio": "Smith example Bio",
-                "dateOfBirth": "January, 1st, 1956"
+                "Name": "James Cameron",
+                "Bio": "Updated version of Bio, James Francis Cameron CC (born August 16, 1954) is a Canadian filmmaker. He is a major figure in the post-New Hollywood era, and one of the industry most innovative filmmakers. He often uses novel technologies with a classical filmmaking style.",
+                "Birth": "1954",
+                "Death": "Alive"
             }
         </td>
     </tr>
@@ -103,78 +125,97 @@
         <td>JSON Object holding data of New User
             <br>
             {
-                "name":"Anna",
-                "favoriteMovies":["exampleMovie"]
+                "Username": "Bobby",
+                "Password": "pas99s777",
+                "Email": "Greatemail@gmail.com",
+                "Birthday": "2007-05-07T00:00:00.000Z"
               }
         </td>
         <td>JSON Object holding data of New User 
             <br>
             {
-                "name": "Anna",
-                "favoriteMovies": [
-                    "exampleMovie"
-                ],
-                "id": "59a570e5-d1d6-471e-8172-abd44959b9b9"
+                "Username": "Bobby",
+                "Password": "pas99s777",
+                "Email": "Greatemail@gmail.com",
+                "Birthday": "2007-05-07T00:00:00.000Z",
+                "FavoriteMovies": [],
+                "_id": "65cbad8c5f3b33c68fa1a6b3",
+                "__v": 0
             }
         </td>
     </tr>
 
     <tr>
         <td>Allow users to update their user info (username)</td>
-        <td>/users/id/</td>
-        <td>:id</td>
+        <td>/users/:Username</td>
+        <td>:Username</td>
         <td>PUT</td>
         <td>JSON Object holding data of New User ID
             <br>
             {
-                "name":"Kim Updated"
+                "Username": "updatedName",
+                "Password": "updatedPassword",
+                "Email": "updatedEmail@gmail.com",
+                "Birthday": "2012-05-07T00:00:00.000Z"
               }
         </td>
         <td>JSON Object of Updated User information
             <br>
             {
-                "id": 1,
-                "name": "Kim Updated",
-                "favoriteMovies": [
-                    "Test"
-                ]
+                "_id": "65cbad8c5f3b33c68fa1a6b3",
+                "Username": "updatedName",
+                "Password": "updatedPassword",
+                "Email": "updatedEmail@gmail.com",
+                "Birthday": "2012-05-07T00:00:00.000Z",
+                "FavoriteMovies": [],
+                "__v": 0
             }
         </td>
     </tr>
 
     <tr>
         <td>Allow users to add a movie to their list of favorites</td>
-        <td>/users/id/movieTitle</td>
-        <td>:id/:movieTitle</td>
+        <td>/Users/:Username/movies/:MovieID</td>
+        <td>:Username, :MovieID</td>
         <td>POST</td>
         <td>None</td>
-        <td>Text Message confimation
+        <td>JSON Object of Updated User information
             <br>
-            Movie has been added to users favoite movies
+            {
+                "_id": "65ca9cf00f3823ac93f5d4ae",
+                "Username": "Jake",
+                "Password": "passss777",
+                "Email": "exampleEmai111@gmail.com",
+                "Birthday": "2009-05-07T00:00:00.000Z",
+                "FavoriteMovies": [
+                    "65c7fd3db2346225eb83f832"
+                ],
+                "__v": 0
+            }
         </td>
     </tr>
 
     <tr>
         <td>Allow users to remove a movie from their list of favorites</td>
-        <td>/uers/id/movieTitle</td>
-        <td>:id/:movieTitle</td>
+        <td>/Users/:Username/movies/:MovieID</td>
+        <td>:Username, :MovieID</td>
         <td>DELETE</td>
         <td>None</td>
         <td>Text Messeage Confimation
             <br>
-            Movie has been removed from the users favoite movies
+            null
         </td>
     </tr>
 
     <tr>
         <td>Allow existing users to deregister</td>
-        <td>/users/id</td>
-        <td>:id</td>
+        <td>/Users/:Username</td>
+        <td>:Username</td>
         <td>DELETE</td>
         <td>None</td>
         <td>Text Message Confirmation
             <br>
-            user id has been deleted
+            Username  + has been deleted
         </td>
     </tr>
 

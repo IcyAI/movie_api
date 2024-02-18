@@ -121,3 +121,6 @@ Timestamp: Sun Jan 21 2024 22:06:36 GMT-0500 (Eastern Standard Time)
 ::1 - - [13/Feb/2024:22:47:36 +0000] "DELETE /Users/Anna/movies/65c7fd3db2346225eb83f832 HTTP/1.1" 200 13 "-" "PostmanRuntime/7.36.3"
 ::1 - - [13/Feb/2024:22:49:19 +0000] "DELETE /Users/Anna/movies/65c7fd3db2346225eb83f832 HTTP/1.1" 200 4 "-" "PostmanRuntime/7.36.3"
 ::1 - - [15/Feb/2024:20:28:54 +0000] "DELETE /Users/Anna/movies/65c7e1d5b2346225eb83f829 HTTP/1.1" 200 221 "-" "PostmanRuntime/7.36.3"
+::1 - - [18/Feb/2024:18:06:15 +0000] "GET /movies HTTP/1.1" 401 - "-" "PostmanRuntime/7.36.3"
+::1 - - [18/Feb/2024:18:12:34 +0000] "POST /users HTTP/1.1" 500 136 "-" "PostmanRuntime/7.36.3"
+::1 - - [18/Feb/2024:18:13:11 +0000] "POST /users HTTP/1.1" 201 174 "-" "PostmanRuntime/7.36.3"

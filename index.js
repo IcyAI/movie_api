@@ -60,7 +60,7 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), asyn
 app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await movies.findOne({ 'genre.name': req.params.genreName})
   .then((movies) => {
-    res.json(movies.genre);
+    res.json(movies.Genre);
   })
   .catch((err) => {
     console.error(err);

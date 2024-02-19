@@ -18,7 +18,7 @@ bodyParser = require('body-parser'),
 uuid = require('uuid');
 
 app.use(express.static('public'));
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let auth = require('./auth')(app);
@@ -58,9 +58,9 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), asyn
 
 //Read genre description
 app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await movies.findOne({ 'genre.name': req.params.genreName})
+  await movies.findOne({ 'Genre.Name': req.params.genreName})
   .then((movies) => {
-    res.json(movies.genre.name);
+    res.json(movies.Genre);
   })
   .catch((err) => {
     console.error(err);
@@ -71,7 +71,7 @@ app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: fals
 
 //Read director description
 app.get('/movies/directors/:directorName', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await movies.findOne({ 'director.name': req.params.directorName})
+  await movies.findOne({ 'Director.Name': req.params.directorName})
   .then((movies) => {
     res.json(movies.director);
   })
@@ -110,23 +110,28 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 
 //Update User Information
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await users.findOneAndUpdate({username: req.params.username }, {
-    $set:
-    {
-    Username: req.body.Username,
-    Password: req.body.Password,
-    Email: req.body.Email,
-    Birthday: req.body.Birthday
-    }
+  // CONDITION TO CHECK ADDED HERE
+  if(req.user.username !== req.params.Username){
+      return res.status(400).send('Permission denied');
+  }
+  // CONDITION ENDS
+  await users.findOneAndUpdate({ username: req.params.Username }, {
+      $set:
+      {
+          username: req.body.username,
+          password: req.body.password,
+          email: req.body.email,
+          birthday: req.body.birthday
+      }
   },
-  { new: true})
-  .then((updatedUser) => {
-    res.json(updatedUser);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
-  })
+      { new: true }) // This line makes sure that the updated document is returned
+      .then((updatedUser) => {
+          res.json(updatedUser);
+      })
+      .catch((err) => {
+          console.log(err);
+          res.status(500).send('Error: ' + err);
+      })
 });
 
 //Update New favorite movie

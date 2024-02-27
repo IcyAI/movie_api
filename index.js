@@ -52,6 +52,10 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { 
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }));
 
+app.get("/", (req, res) => {
+  res.send("Welcome to SpookyVibes!");
+});
+
 //Read all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await movies.find()

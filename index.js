@@ -53,7 +53,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { 
 app.use(morgan('combined', { stream: accessLogStream }));
 
 app.get("/", (req, res) => {
-  res.send("Welcome to SpookyVibes!");
+  res.send("Welcome to myFlix!");
 });
 
 //Read all movies

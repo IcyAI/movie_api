@@ -46,7 +46,7 @@ passport.use(
 //checks JWT on each server request
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'your_jwt_secret'},
+    secretOrKey: process.env.secretKey},
     async (jwtPayload, callback) => {
         return await users.findById(jwtPayload._id)
         .then((user) => {

@@ -1,54 +1,86 @@
 
-const mongoose = require('mongoose');
-const Models = require('./models.js');
+// const mongoose = require('mongoose');
+// const Models = require('./models.js');
 
-const movies = Models.movie;
-const users = Models.user;
+// const movies = Models.movie;
+// const users = Models.user;
 
-//mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// //mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// const express = require('express'),
+//     morgan = require('morgan'),
+//     fs = require('fs'), // import built in node modules fs and path 
+//     path = require('path');
+
+// const app = express();
+// const { check, validationResult } = require('express-validator');
+
+
+// const cors = require('cors');
+// let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if(!origin) return callback(null, true);
+//     if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
+//       let message = 'The CORS policy for this application does not allow access from origin ' + origin;
+//       return callback(new Error(message ), false);
+//     }
+//     return callback(null, true);
+//   }
+// }));
+
+// bodyParser = require('body-parser'),
+// uuid = require('uuid');
+
+// app.use(express.static('public'));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+
+// let auth = require('./auth')(app);
+// const passport = require('passport');
+// require('./passport');
+
+// // create a write stream (in append mode)
+// // a ‘log.txt’ file is created in root directory
+// const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' })
+
+// // setup the logger
+// app.use(morgan('combined', { stream: accessLogStream }));
 
 const express = require('express'),
-    morgan = require('morgan'),
-    fs = require('fs'), // import built in node modules fs and path 
-    path = require('path');
+    mongoose = require('mongoose'),
+    Models = require('./models.js'),
+    {check, validationResult} = require('express-validator');
 
-const app = express();
-const { check, validationResult } = require('express-validator');
+const app = express(); //use this variable to route HTTP requests and responses
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
+const Movies = Models.Movie;
+const Users = Models.User;
+
+//connects to local database. swap with .connect function below if needed.
+// mongoose.connect('mongodb://localhost:27017/svDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+//connects to MongoDB Atlas database
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+app.use(cors());
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
-      let message = 'The CORS policy for this application does not allow access from origin ' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true);
-  }
-}));
-
-bodyParser = require('body-parser'),
-uuid = require('uuid');
-
-app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-let auth = require('./auth')(app);
+let auth = require('./auth.js')(app); //(app) ensures Express is available in the .auth.js file
 const passport = require('passport');
-require('./passport');
+require('./passport.js');
 
-// create a write stream (in append mode)
-// a ‘log.txt’ file is created in root directory
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' })
+app.get("/", (req, res) => {
+  res.send("Welcome to SpookyVibes!");
+});
 
-// setup the logger
-app.use(morgan('combined', { stream: accessLogStream }));
+// serve the “documentation.html” and any other files from the public folder
+app.use(express.static('public'));
 
 app.get("/", (req, res) => {
   res.send("Welcome to myFlix!");

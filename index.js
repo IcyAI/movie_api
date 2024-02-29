@@ -59,8 +59,8 @@ const app = express(); //use this variable to route HTTP requests and responses
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-const Movies = Models.Movie;
-const Users = Models.User;
+const movies = Models.movie;
+const users = Models.user;
 
 //connects to local database. swap with .connect function below if needed.
 // mongoose.connect('mongodb://localhost:27017/svDB', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -75,13 +75,14 @@ let auth = require('./auth.js')(app); //(app) ensures Express is available in th
 const passport = require('passport');
 require('./passport.js');
 
+app.use(express.static('public'));
+
 app.get("/", (req, res) => {
   res.send("Welcome to SpookyVibes!");
 });
 
 // serve the “documentation.html” and any other files from the public folder
 app.use(express.static('public'));
-
 app.get("/", (req, res) => {
   res.send("Welcome to myFlix!");
 });

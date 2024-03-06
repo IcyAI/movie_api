@@ -1,7 +1,7 @@
 
 const express = require('express'),
     mongoose = require('mongoose'),
-    Models = require('./models.js'),
+    Models = require('./js/models.js'),
     {check, validationResult} = require('express-validator');
 
 const app = express(); //use this variable to route HTTP requests and responses
@@ -20,9 +20,9 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 const cors = require('cors');
 app.use(cors());
 
-let auth = require('./auth.js')(app); //(app) ensures Express is available in the .auth.js file
+let auth = require('./js/auth.js')(app); //(app) ensures Express is available in the .auth.js file
 const passport = require('passport');
-require('./passport.js');
+require('./js/passport.js');
 
 app.get("/", (req, res) => {
   res.send("Welcome to myFlix!");

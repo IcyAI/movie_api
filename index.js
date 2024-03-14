@@ -171,8 +171,11 @@ app.delete('/users/:Username', passport.authenticate ('jwt', {session: false}), 
     });
 });
 
+//removed for Exercise 3.4
+//passport.authenticate('jwt', {session: false}),
+
 // GET to return the full list of movies
-app.get('/movies', passport.authenticate('jwt', {session: false}), async (req, res) => {
+app.get('/movies', async (req, res) => {
   await Movies.find()
     .then((movies) => {
       res.status(201).json(movies);

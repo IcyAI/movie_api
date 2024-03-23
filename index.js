@@ -92,7 +92,7 @@ app.put('/users/:Username', [
   //input validation here
   check('Username', 'Username is required').notEmpty(),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-  check('Password', 'Password is required').notEmpty(),
+  // check('Password', 'Password is required').notEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail()
 ], passport.authenticate ('jwt', {session: false}), async (req, res) => {
 
@@ -119,12 +119,12 @@ app.put('/users/:Username', [
       // gives you data already in the database
       let oldData = Users.findOne({ Username: req.params.Username }); 
 
-      let hashedPassword = req.body.Password? Users.hashPassword(req.body.Password) : Users.findOne({ Username: req.params.Username }).Password;
+      //let hashedPassword = req.body.Password? Users.hashPassword(req.body.Password) : Users.findOne({ Username: req.params.Username }).Password;
       await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
           {
               // If there is new data update the database with new data, else use old data
               Username: req.body.Username || oldData.Username,
-              Password: hashedPassword, // see hashed variable above
+              //Password: hashedPassword, // see hashed variable above
               Email: req.body.Email || oldData.Email,
               Birthday: req.body.Birthday || oldData.Birthday
           }

@@ -1,13 +1,13 @@
-#MyFlix API
+# MyFlix API
 ##Description
 The MyFlix REST API is the server-side component of the myflix web application (frontend is here: https://movies-flix50-8c220c6131d7.herokuapp.com/ . 
 The API provides users with access to information about different movies, including the plot, director, genre, and image. Users are able to sign up, update their personal information, and create a list of their favorite movies.
 
-##Documentation
+## Documentation
 See documentation.html in the public folder of the repository.
 More Documentation is in the out folder under the index.html
 
-##What's Needed
+## What's Needed
 Node.js: JavaScript runtime for server-side scripting.
 Express: Back end web application framework for building RESTful APIs with Node.js.
 MongoDB with Mongoose: NoSQL database and Object Data Modeling library for Node.js.

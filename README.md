@@ -5,7 +5,7 @@ The API provides users with access to information about different movies, includ
 
 ## Documentation
 - See documentation.html in the public folder of the repository.
-- More Documentation is in the out folder under the index.html
+- More Documentation is in the out folder under the index.html file
 
 ## Dependencies
 * Node.js: JavaScript runtime for server-side scripting.
